@@ -1,11 +1,11 @@
-Rails 7 サンプルベース
-======================
+Rails 7 サンプル minitest
+=========================
 
 [![Build status][shield-build]](#)
 [![MIT licensed][shield-license]](#)
 [![Rails][shield-rails]][rails]
 
-Rails サンプルを作成するためのベース
+Rails minitest のサンプル
 
 ## Table of Contents
 
@@ -23,67 +23,48 @@ Rails サンプルを作成するためのベース
 
 ## Demo
 
-* https://sample-rails7-base.fkoba.com
+* https://sample-rails7-minitest.fkoba.com
 
 ## How to make
 
 ### Rails アプリケーション作成
 
 ```sh
-$ rails _7.0.3.1_ new sample-rails7-base -d postgresql --skip-hotwire
-$ cd sample-rails7-base
-$ git add .
-$ git commit -m "Initial commit"
-```
-
-### トップページ作成
-
-- [config/routes.rb](config/routes.rb) を編集
-
-```ruby
-Rails.application.routes.draw do
-  ...
-  root 'static_page#top'
-  ...
-end
-```
-
-- [app/controllers/static_page_controller.rb](app/controllers/static_page_controller.rb) を作成
-
-```ruby
-class StaticPageController < ApplicationController
-  def root
-    # render :root  # これが省略されている
-  end
-end
-```
-
-- [app/views/static_page/root.html.erb](app/views/static_page/root.html.erb) を作成
-
-```erb
-<h1>ルートページ</h1>
-
-<p>
-  ルートページの内容。
-</p>
+$ git clone git@github.com:kyuuki/sample-rails7-base.git sample-rails7-minitest
+$ cd sample-rails7-minitest
 ```
 
 ### GitHub
 
-- GitHub に sample-rails7-base という名前でリポジトリ追加
+- GitHub に sample-rails7-minitest という名前でリポジトリ追加
 
 
 ```sh
-$ git remote add origin git@github.com:kyuuki/sample-rails7-base.git
-$ git branch -M main
-$ git push -u origin main
+$ git remote set-url origin git@github.com:kyuuki/sample-rails7-minitest.git
+$ git push
 ```
+
+### factory_bot 導入
+
+1. gem 追加 [(commit)](https://github.com/kyuuki/sample-rails7-minitest/commit/1e0a4c6c62a7b92565379857dba3bdd88f4035b8#diff-d09ea66f8227784ff4393d88a19836f321c915ae10031d16c93d67e6283ab55f)  
+   $ bundle install
+2. test/fixtures ディレクトリ削除
+3. test/test_helper.rb から fixtures :all 削除 [(commit)](https://github.com/kyuuki/sample-rails7-minitest/commit/1e0a4c6c62a7b92565379857dba3bdd88f4035b8#diff-ba37813ca277c227a74a372479b7b05b7f3ff085d890ab708f80d62573efdb7a)
+
+
+### システムテスト追加
+
+1. test/application_system_test_case.rb を編集
+2. $ rails g system_test static_page
+3. テストコード追加
+4. テスト実行  
+   $ rails test:system
 
 ## Usage
 
 ```sh
-$ git clone git@github.com:kyuuki/sample-rails7-base.git
-$ cd sample-rails7-base
+$ git clone git@github.com:kyuuki/sample-rails7-minitest.git
+$ cd sample-rails7-minitest
 $ bundle install
 $ rails db:create
 $ rails s -b 0.0.0.0
@@ -92,8 +73,8 @@ $ rails s -b 0.0.0.0
 
 ## References
 
-* [Ruby on Rails Guides (v7.0.x) (英)](https://guides.rubyonrails.org/v7.0/)
-* [Ruby on Rails ガイド (日)](https://railsguides.jp/)
+* [factory_bot (英)](https://github.com/thoughtbot/factory_bot)
+* [Rails テスティングガイド (日)](https://railsguides.jp/testing.html)
 
 ## License
 
